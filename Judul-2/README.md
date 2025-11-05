@@ -3,11 +3,11 @@
 Repositori ini berisi proyek Website Portofolio Pribadi yang dibuat untuk menampilkan informasi tentang diri saya, keahlian, pengalaman, dan proyek-proyek yang pernah saya kerjakan.Website ini dibuat menggunakan HTML, CSS, serta dihosting di GitHub Pages agar dapat diakses secara online.
 
 ## Langkah Instalasi
-### 1️ Clone repository ini ke komputer lokal
+#### 1️ Clone repository ini ke komputer lokal
 git clone https://github.com/dhinivadilaa/Praktikum-Pemrograman-Web.git
-### 2️ Masuk ke direktori proyek
+#### 2️ Masuk ke direktori proyek
 cd Praktikum-Pemrograman-Web
-### 3️ Jalankan file index.html di browser
+#### 3️ Jalankan file index.html di browser
 Tidak diperlukan instalasi tambahan karena proyek ini berbasis statis (HTML, CSS,).
 
 ### Commit 
@@ -38,3 +38,8 @@ perintah git branch -d experimen untuk menghapus branch bernama experimen di rep
 Perintah ini berfungsi untuk menghapus branch bernama experimen dari repository di GitHub, bukan dari lokal. Bagian origin menunjukkan nama remote repository (biasanya GitHub), sedangkan --delete experimen berarti menghapus branch experimen yang ada di sana. Perintah ini biasanya dijalankan setelah branch tersebut tidak lagi dibutuhkan, misalnya setelah semua perubahan di-merge ke branch utama (main). Setelah berhasil, Git akan menampilkan pesan konfirmasi bahwa branch experimen telah dihapus dari remote repository, sehingga tidak lagi muncul di daftar branch GitHub.
 
 ### Perintah git log --graph --oneline.
+![](https://github.com/dhinivadilaa/Praktikum-Pemrograman-Web/blob/main/Judul-2/WhatsApp%20Image%202025-11-05%20at%2022.25.49_1ad47c70.jpg?raw=true)
+![](https://github.com/dhinivadilaa/Praktikum-Pemrograman-Web/blob/main/Judul-2/WhatsApp%20Image%202025-11-05%20at%2022.26.29_6a084a17.jpg?raw=true)
+
+hasil dari perintah git log --graph --oneline, yang berfungsi untuk menampilkan riwayat commit secara ringkas dan dalam bentuk grafik garis cabang (branch). Opsi --oneline membuat setiap commit ditampilkan dalam satu baris yang berisi hash singkat commit dan pesan commit, sedangkan --graph menambahkan tanda visual di sisi kiri (misalnya *) untuk menunjukkan struktur atau alur cabang.
+
