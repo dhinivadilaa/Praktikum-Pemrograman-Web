@@ -33,4 +33,8 @@ Selanjutnya menggunakan perintah git checkout main untuk berpindah dari branch e
 
 perintah git branch -d experimen untuk menghapus branch bernama experimen di repository lokal. Perintah ini digunakan setelah proses merge selesai dan perubahan dari branch experimen sudah digabungkan ke branch utama (main), sehingga branch tersebut tidak lagi diperlukan. Opsi -d berarti delete dan hanya akan menghapus branch jika sudah digabungkan (merged) dengan branch lain, sehingga aman digunakan karena tidak akan menghapus pekerjaan yang belum tersimpan di branch utama.
 
+![Delete Branch Repositori](https://github.com/dhinivadilaa/Praktikum-Pemrograman-Web/blob/main/Judul-2/WhatsApp%20Image%202025-11-05%20at%2013.18.55_c6f16823.jpg?raw=true)
 
+Perintah ini berfungsi untuk menghapus branch bernama experimen dari repository di GitHub, bukan dari lokal. Bagian origin menunjukkan nama remote repository (biasanya GitHub), sedangkan --delete experimen berarti menghapus branch experimen yang ada di sana. Perintah ini biasanya dijalankan setelah branch tersebut tidak lagi dibutuhkan, misalnya setelah semua perubahan di-merge ke branch utama (main). Setelah berhasil, Git akan menampilkan pesan konfirmasi bahwa branch experimen telah dihapus dari remote repository, sehingga tidak lagi muncul di daftar branch GitHub.
+
+### Perintah git log --graph --oneline.
