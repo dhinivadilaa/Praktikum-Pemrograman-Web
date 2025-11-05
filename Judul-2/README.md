@@ -23,5 +23,8 @@ saya menggunakan perintah git branch experimen untuk membuat branch baru dengan 
 ![](https://github.com/dhinivadilaa/Praktikum-Pemrograman-Web/blob/main/Judul-2/WhatsApp%20Image%202025-11-05%20at%2013.07.55_015c9fd6.jpg?raw=true)
 perintah git push -u origin experimen untuk mengirim (push) perubahan dari branch lokal bernama experimen ke repository GitHub pada remote bernama origin. Opsi -u berfungsi untuk menghubungkan branch lokal dengan branch remote sehingga pada push berikutnya cukup menggunakan perintah git push saja. Setelah perintah dijalankan, Git menampilkan proses pengiriman data seperti enumerasi, kompresi, dan penulisan objek hingga selesai. Pesan yang muncul menunjukkan bahwa branch baru bernama experimen berhasil dibuat di GitHub dan sudah terhubung dengan branch lokal. Git juga memberikan tautan untuk membuat pull request agar perubahan di branch experimen dapat digabungkan ke branch utama. Terakhir, ketika saya menjalankan perintah git push kembali, muncul pesan “Everything up-to-date” yang menandakan semua perubahan sudah berhasil dikirim dan tidak ada pembaruan tambahan yang perlu diunggah.
 
-### 
-![]()
+### Merge branch
+![](https://github.com/dhinivadilaa/Praktikum-Pemrograman-Web/blob/main/Judul-2/WhatsApp%20Image%202025-11-05%20at%2013.14.45_83bd71e0.jpg?raw=true)
+
+Selanjutnya menggunakan perintah git checkout main untuk berpindah dari branch experimen ke branch utama yaitu main. Setelah berpindah, perintah git pull dijalankan untuk memastikan branch main di lokal sudah sinkron dengan branch main di GitHub. Selanjutnya, saya menjalankan git merge experimen untuk menggabungkan seluruh perubahan yang telah dibuat di branch experimen ke dalam branch main. Proses merge berjalan secara fast-forward, artinya tidak ada konflik dan riwayat commit hanya maju mengikuti commit terbaru dari experimen. Setelah penggabungan selesai, perintah git push digunakan untuk mengirim hasil merge ke repository GitHub, sehingga branch main di GitHub kini telah diperbarui sesuai dengan perubahan dari experimen.
+
