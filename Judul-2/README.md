@@ -1,15 +1,16 @@
-Portofolio Pribadi
+## Portofolio Pribadi
 
-Repositori ini berisi proyek Website Portofolio Pribadi yang dibuat untuk menampilkan informasi tentang diri saya, keahlian, pengalaman, dan proyek-proyek yang pernah saya kerjakan.
-Website ini dibuat menggunakan HTML, CSS, serta dihosting di GitHub Pages agar dapat diakses secara online.
+Repositori ini berisi proyek Website Portofolio Pribadi yang dibuat untuk menampilkan informasi tentang diri saya, keahlian, pengalaman, dan proyek-proyek yang pernah saya kerjakan.Website ini dibuat menggunakan HTML, CSS, serta dihosting di GitHub Pages agar dapat diakses secara online.
 
-Langkah Instalasi
-# 1️⃣ Clone repository ini ke komputer lokal
+## Langkah Instalasi
+### 1️ Clone repository ini ke komputer lokal
 git clone https://github.com/dhinivadilaa/Praktikum-Pemrograman-Web.git
-
-# 2️⃣ Masuk ke direktori proyek
+### 2️ Masuk ke direktori proyek
 cd Praktikum-Pemrograman-Web
-
-# 3️⃣ Jalankan file index.html di browser
-
+### 3️ Jalankan file index.html di browser
 Tidak diperlukan instalasi tambahan karena proyek ini berbasis statis (HTML, CSS,).
+
+![](https://github.com/dhinivadilaa/Praktikum-Pemrograman-Web/blob/main/Judul-2/WhatsApp%20Image%202025-11-05%20at%2012.56.45_79b5851c.jpg?raw=true)
+
+Pertama, saya menggunakan git pull untuk mengambil (fetch) dan menggabungkan (merge) perubahan terbaru dari repository GitHub ke repository lokal saya.Pada hasil terminal terlihat pesan “Already up to date.”, yang berarti repository lokal saya sudah sinkron dengan repository di GitHub tidak ada perubahan baru dari server.Selanjutnya, saya menjalankan git add . untuk menambahkan semua file yang telah saya ubah (termasuk file README.md) ke dalam staging area.Tanda titik (.) pada perintah ini berfungsi untuk menandai semua file dalam folder proyek agar siap dikomit.Setelah itu, saya menggunakan git commit -m "intro" untuk menyimpan perubahan tersebut ke dalam riwayat Git.Pesan commit "intro" saya gunakan sebagai keterangan singkat bahwa perubahan yang saya buat berkaitan dengan bagian pengenalan proyek.Output menampilkan 1 file changed, 1 insertion(+), 1 deletion(-) yang menunjukkan bahwa ada satu file yang diperbarui.Terakhir, saya menjalankan git push untuk mengirim commit dari repository lokal ke repository GitHub.Pada terminal terlihat output:To https://github.com/dhinivadilaa/Praktikum-Pemrograman-Web.git[main 0a0ab97] intro Pesan tersebut menandakan bahwa commit dengan pesan intro berhasil dikirim dan diterapkan pada branch utama (main) di GitHub.
+
