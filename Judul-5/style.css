@@ -1,59 +1,191 @@
-/* Styling dasar */
-.calculator {
-    width: 300px; /* Lebar default untuk desktop */
-    margin: 50px auto;
-    border: 1px solid #ccc;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    padding: 10px;
-    border-radius: 10px;
+/* style.css - Tema Kalkulator Canon Pink */
+
+/* 1. Body dan Background Umum */
+body {
+    background-color: #ff80ab; /* Background halaman sangat pucat */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
 }
 
-/* Display */
+/* 2. Container Kalkulator */
+.calculator {
+    width: 300px; 
+    margin: 50px auto;
+    /* Border dan Shadow lembut untuk kesan plastik */
+    border: 1px solid #f0e6e9; 
+    box-shadow: 0 5px 15px rgba(255, 192, 203, 0.4); 
+    padding: 15px; /* Sedikit lebih lebar */
+    border-radius: 12px; 
+    background-color: #f7e6ec; /* Warna utama casing kalkulator: Pink sangat muda */
+    position: relative; 
+}
+
+/* 3. Display */
 .display {
     text-align: right;
-    padding: 10px;
-    background: #222;
-    color: white;
-    margin-bottom: 10px;
-    border-radius: 5px;
+    /* Padding kecil agar lebih ramping */
+    padding: 8px 10px; 
+    /* Warna display seperti kalkulator digital (hijau gelap/abu-abu gelap) */
+    background: #e0f2f1; /* Hijau muda/putih kehijauan untuk display */
+    color: #004d40; /* Teks display: Hijau gelap/teal agar kontras */
+    margin-bottom: 15px; 
+    border-radius: 4px;
+    border: 1px solid #c8e6c9;
+    min-height: 40px; /* Jaga agar display punya tinggi minimum */
 }
 .current-operand {
-    font-size: 2.5em;
-    min-height: 1.2em;
+    font-size: 2em; /* Ukuran font sedang */
+    min-height: 1em;
+    font-weight: bold;
 }
 .previous-operand {
-    font-size: 1em;
-    color: #aaa;
+    font-size: 0.8em; 
+    color: #4db6ac; /* Warna lebih terang untuk operasi sebelumnya */
 }
 
-/* Button Grid */
+/* 4. Button Grid */
 .buttons {
     display: grid;
-    /* 4 kolom yang sama lebarnya */
     grid-template-columns: repeat(4, 1fr); 
     gap: 8px;
 }
 
-/* Styling Tombol */
+/* 5. Styling Tombol Dasar (Angka dan M-Functions) */
 .buttons button {
-    padding: 15px;
-    font-size: 1.2em;
+    padding: 15px 10px;
+    font-size: 1.1em;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px; /* Sudut lebih tajam seperti kalkulator fisik */
     cursor: pointer;
-    background: #f0f0f0;
+    background-color: #ffffff; /* Tombol angka dan M-functions: Putih */
+    color: #333;
+    transition: background-color 0.1s;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
 }
 .buttons button:hover {
-    opacity: 0.9;
+    background-color: #f0f0f0; /* Hover lembut */
+    opacity: 1; 
 }
 .span-2 {
     grid-column: span 2;
 }
 
+/* 6. Tombol Fungsi: Clear/CE (Pink Gelap) dan Operasi (Pink Terang) */
+
+/* Tombol Clear/CE/DEL (Pink Gelap - seperti di gambar) */
+.buttons button[data-action="clear"],
+.buttons button[data-action="clear-entry"],
+.buttons button[data-action="backspace"] {
+    background-color: #e91e63; /* Pink fuchsia */
+    color: white;
+}
+.buttons button[data-action="clear"]:hover,
+.buttons button[data-action="clear-entry"]:hover,
+.buttons button[data-action="backspace"]:hover {
+    background-color: #c2185b;
+}
+
+/* Tombol Operator Aritmatika (+, -, ×, ÷) dan Equals (=) */
+.buttons button[data-action="operator"],
+.buttons button[data-action="equals"] {
+    background-color: #ff80ab; /* Pink cerah */
+    color: white;
+    font-weight: bold;
+}
+.buttons button[data-action="operator"]:hover,
+.buttons button[data-action="equals"]:hover {
+    background-color: #ff4081;
+}
+
+/* 7. Tombol Memori (Menggunakan style putih, karena sudah dipindah ke grid) */
+.buttons button[data-action^="m-"] {
+    background-color: #ffffff; /* Putih (seperti angka) */
+    color: #e91e63; /* Teks memori berwarna pink gelap */
+    font-weight: bold;
+}
+.buttons button[data-action^="m-"]:hover {
+    background-color: #f0f0f0;
+}
+
+
+/* 8. History Toggle (Ikon Riwayat) */
+.history-toggle-button {
+    position: absolute;
+    top: 25px; /* Posisikan di atas display */
+    right: 25px;
+    background: none;
+    border: none;
+    font-size: 1.3em;
+    cursor: pointer;
+    color: #004d40; /* WARNA KONTRAS (Hijau gelap dari display) */
+    z-index: 20; 
+    transition: color 0.2s ease;
+}
+.history-toggle-button:hover {
+    color: #00251a;
+}
+
+/* 9. History Drawer (Panel Riwayat) */
+.history-drawer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; 
+    background: rgba(255, 255, 255, 0.95); /* Putih semi-transparan */
+    padding: 15px;
+    border-radius: 12px;
+    box-sizing: border-box;
+    z-index: 15; 
+    
+    opacity: 0; 
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.history-drawer.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Styling Riwayat */
+.history-drawer h4 {
+    margin-top: 0;
+    color: #e91e63; /* Judul pink gelap */
+    border-bottom: 1px solid #ffcdd2;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+.history-list {
+    list-style: none;
+    padding: 0;
+    max-height: 85%; /* Sedikit diperbesar */
+    overflow-y: auto;
+}
+
+.history-list li {
+    padding: 8px;
+    color: #333;
+    border-bottom: 1px solid #f0e6e9; /* Border sangat tipis */
+    cursor: pointer;
+    font-size: 1em;
+    text-align: right;
+}
+
+/* HILANGKAN HOVER RIWAYAT */
+/* Blok .history-list li:hover TIDAK ADA di sini */
+
+
 /* Media Query untuk Responsif (Mobile) */
 @media (max-width: 600px) {
     .calculator {
-        width: 90%; /* Ambil hampir seluruh lebar layar */
+        width: 90%; 
         margin: 20px auto;
+        padding: 10px;
     }
 }
