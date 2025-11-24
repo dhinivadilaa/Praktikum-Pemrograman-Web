@@ -1,0 +1,59 @@
+/* Styling dasar */
+.calculator {
+    width: 300px; /* Lebar default untuk desktop */
+    margin: 50px auto;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+/* Display */
+.display {
+    text-align: right;
+    padding: 10px;
+    background: #222;
+    color: white;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+.current-operand {
+    font-size: 2.5em;
+    min-height: 1.2em;
+}
+.previous-operand {
+    font-size: 1em;
+    color: #aaa;
+}
+
+/* Button Grid */
+.buttons {
+    display: grid;
+    /* 4 kolom yang sama lebarnya */
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 8px;
+}
+
+/* Styling Tombol */
+.buttons button {
+    padding: 15px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background: #f0f0f0;
+}
+.buttons button:hover {
+    opacity: 0.9;
+}
+.span-2 {
+    grid-column: span 2;
+}
+
+/* Media Query untuk Responsif (Mobile) */
+@media (max-width: 600px) {
+    .calculator {
+        width: 90%; /* Ambil hampir seluruh lebar layar */
+        margin: 20px auto;
+    }
+}
