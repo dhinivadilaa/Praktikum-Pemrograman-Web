@@ -1,3 +1,3 @@
 ## Tampilan Kalkulator
-**Tampilan Kalkulator**: ![gambar kalkulator](Judul-5/tampilan_kalkulator.png)
+**Tampilan Kalkulator**: ![gambar kalkulator](tampilan_kalkulator.png)
   
