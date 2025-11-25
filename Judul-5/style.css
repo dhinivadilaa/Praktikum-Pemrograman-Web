@@ -1,191 +1,284 @@
-/* style.css - Tema Kalkulator Canon Pink */
+:root {
+    --color-background: #FCF5EE; 
+    --color-light: #FFC4C4;     
+    --color-accent: #EE6983;     
+    --color-dark: #850E35;       
 
-/* 1. Body dan Background Umum */
-body {
-    background-color: #ff80ab; /* Background halaman sangat pucat */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    margin: 0;
-    font-family: Arial, sans-serif;
+    --text-dark: #333;
+    --display-bg: #FCF5EE;       
+    --shadow-color: rgba(0, 0, 0, 0.2);
 }
 
-/* 2. Container Kalkulator */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: var(--color-light); 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+
 .calculator {
-    width: 300px; 
-    margin: 50px auto;
-    /* Border dan Shadow lembut untuk kesan plastik */
-    border: 1px solid #f0e6e9; 
-    box-shadow: 0 5px 15px rgba(255, 192, 203, 0.4); 
-    padding: 15px; /* Sedikit lebih lebar */
-    border-radius: 12px; 
-    background-color: #f7e6ec; /* Warna utama casing kalkulator: Pink sangat muda */
+    background-color: var(--color-background); 
+    border-radius: 15px;
+    box-shadow: 0 10px 30px var(--shadow-color);
+    width: 100%;
+    max-width: 350px;
+    padding: 20px;
+    margin-bottom: 20px;
     position: relative; 
 }
 
-/* 3. Display */
-.display {
+.history-display p {
+    min-height: 20px;
+    color: var(--color-dark); 
+    font-size: 0.9em;
     text-align: right;
-    /* Padding kecil agar lebih ramping */
-    padding: 8px 10px; 
-    /* Warna display seperti kalkulator digital (hijau gelap/abu-abu gelap) */
-    background: #e0f2f1; /* Hijau muda/putih kehijauan untuk display */
-    color: #004d40; /* Teks display: Hijau gelap/teal agar kontras */
-    margin-bottom: 15px; 
-    border-radius: 4px;
-    border: 1px solid #c8e6c9;
-    min-height: 40px; /* Jaga agar display punya tinggi minimum */
-}
-.current-operand {
-    font-size: 2em; /* Ukuran font sedang */
-    min-height: 1em;
-    font-weight: bold;
-}
-.previous-operand {
-    font-size: 0.8em; 
-    color: #4db6ac; /* Warna lebih terang untuk operasi sebelumnya */
+    margin-bottom: 5px;
+    padding-left: 50px; 
 }
 
-/* 4. Button Grid */
-.buttons {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); 
-    gap: 8px;
-}
-
-/* 5. Styling Tombol Dasar (Angka dan M-Functions) */
-.buttons button {
-    padding: 15px 10px;
-    font-size: 1.1em;
-    border: none;
-    border-radius: 4px; /* Sudut lebih tajam seperti kalkulator fisik */
-    cursor: pointer;
-    background-color: #ffffff; /* Tombol angka dan M-functions: Putih */
-    color: #333;
-    transition: background-color 0.1s;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
-}
-.buttons button:hover {
-    background-color: #f0f0f0; /* Hover lembut */
-    opacity: 1; 
-}
-.span-2 {
-    grid-column: span 2;
-}
-
-/* 6. Tombol Fungsi: Clear/CE (Pink Gelap) dan Operasi (Pink Terang) */
-
-/* Tombol Clear/CE/DEL (Pink Gelap - seperti di gambar) */
-.buttons button[data-action="clear"],
-.buttons button[data-action="clear-entry"],
-.buttons button[data-action="backspace"] {
-    background-color: #e91e63; /* Pink fuchsia */
-    color: white;
-}
-.buttons button[data-action="clear"]:hover,
-.buttons button[data-action="clear-entry"]:hover,
-.buttons button[data-action="backspace"]:hover {
-    background-color: #c2185b;
-}
-
-/* Tombol Operator Aritmatika (+, -, ×, ÷) dan Equals (=) */
-.buttons button[data-action="operator"],
-.buttons button[data-action="equals"] {
-    background-color: #ff80ab; /* Pink cerah */
-    color: white;
-    font-weight: bold;
-}
-.buttons button[data-action="operator"]:hover,
-.buttons button[data-action="equals"]:hover {
-    background-color: #ff4081;
-}
-
-/* 7. Tombol Memori (Menggunakan style putih, karena sudah dipindah ke grid) */
-.buttons button[data-action^="m-"] {
-    background-color: #ffffff; /* Putih (seperti angka) */
-    color: #e91e63; /* Teks memori berwarna pink gelap */
-    font-weight: bold;
-}
-.buttons button[data-action^="m-"]:hover {
-    background-color: #f0f0f0;
+.display input {
+    width: 100%;
+    height: 60px;
+    background-color: var(--display-bg);
+    
+   
+    border: 2px solid var(--color-light); 
+    outline: none; 
+    border-radius: 8px;
+    text-align: right;
+    padding: 0 15px;
+    font-size: 2.5em;
+    color: var(--text-dark);
+    margin-bottom: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 
-/* 8. History Toggle (Ikon Riwayat) */
-.history-toggle-button {
+.display input:focus,
+.display input:hover {
+    border: 2px solid var(--color-light); 
+    outline: none; 
+}
+
+.history-toggle-btn {
     position: absolute;
-    top: 25px; /* Posisikan di atas display */
-    right: 25px;
+    top: 15px; 
+    left: 15px;
     background: none;
     border: none;
-    font-size: 1.3em;
+    color: var(--color-dark); 
+    font-size: 1.5em;
     cursor: pointer;
-    color: #004d40; /* WARNA KONTRAS (Hijau gelap dari display) */
-    z-index: 20; 
-    transition: color 0.2s ease;
-}
-.history-toggle-button:hover {
-    color: #00251a;
+    z-index: 10;
+    transition: color 0.1s;
 }
 
-/* 9. History Drawer (Panel Riwayat) */
-.history-drawer {
+.history-toggle-btn:hover {
+    color: var(--color-accent); 
+}
+
+.history-overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%; 
-    background: rgba(255, 255, 255, 0.95); /* Putih semi-transparan */
-    padding: 15px;
-    border-radius: 12px;
-    box-sizing: border-box;
-    z-index: 15; 
+    height: 100%;
+    background-color: rgba(252, 245, 238, 0.95); 
+    border-radius: 15px;
+    padding: 20px;
+    z-index: 5; 
     
-    opacity: 0; 
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    transform: translateX(-100%); 
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
 }
 
-.history-drawer.active {
+.history-overlay.active {
+    transform: translateX(0);
     opacity: 1;
-    visibility: visible;
+    pointer-events: auto;
 }
 
-/* Styling Riwayat */
-.history-drawer h4 {
-    margin-top: 0;
-    color: #e91e63; /* Judul pink gelap */
-    border-bottom: 1px solid #ffcdd2;
-    padding-bottom: 5px;
+.history-overlay.active ~ .history-toggle-btn {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--color-light); 
+    padding-bottom: 10px;
     margin-bottom: 10px;
 }
 
-.history-list {
-    list-style: none;
-    padding: 0;
-    max-height: 85%; /* Sedikit diperbesar */
-    overflow-y: auto;
+.history-header h3 {
+    color: var(--color-dark);
+    font-size: 1.2em;
+    padding-left: 40px; 
 }
 
-.history-list li {
-    padding: 8px;
-    color: #333;
-    border-bottom: 1px solid #f0e6e9; /* Border sangat tipis */
+
+.clear-history-btn {
+    background-color: var(--color-light); 
+    color: var(--color-dark); 
+    border: 1px solid var(--color-accent);
+    padding: 5px 10px;
+    border-radius: 5px;
     cursor: pointer;
-    font-size: 1em;
-    text-align: right;
+    font-size: 0.8em;
+    transition: background-color 0.1s;
 }
 
-/* HILANGKAN HOVER RIWAYAT */
-/* Blok .history-list li:hover TIDAK ADA di sini */
+.clear-history-btn:hover {
+    background-color: var(--color-accent); 
+    color: white;
+}
+
+#calculation-history-list {
+    list-style: none;
+    max-height: 80%; 
+    overflow-y: auto;
+    padding: 0;
+}
+
+#calculation-history-list li {
+    padding: 8px 0;
+    border-bottom: 1px dotted #ccc;
+    font-size: 0.9em;
+    color: var(--text-dark);
+}
+#calculation-history-list li:last-child {
+    border-bottom: none;
+}
 
 
-/* Media Query untuk Responsif (Mobile) */
-@media (max-width: 600px) {
+.memory-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.memory-btn {
+    flex-grow: 1;
+    margin: 0 3px;
+    padding: 5px;
+    font-size: 0.9em;
+    background-color: var(--color-light); 
+    color: var(--color-dark);
+    border: 1px solid var(--color-accent);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.1s;
+}
+
+.memory-btn:hover {
+    background-color: var(--color-accent); 
+    color: white;
+}
+
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.btn {
+    padding: 15px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.1s, transform 0.05s;
+    font-weight: bold;
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+
+.number-btn, .decimal-btn {
+    background-color: var(--color-background); 
+    color: var(--text-dark);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.number-btn:hover, .decimal-btn:hover {
+    background-color: #ffeaea;
+}
+
+
+.function-btn {
+    background-color: var(--color-light); 
+    color: var(--color-dark); 
+}
+
+.function-btn:hover {
+    background-color: var(--color-accent);
+    color: white;
+}
+
+
+.operator-btn {
+    background-color: var(--color-accent); 
+    color: white;
+}
+
+.operator-btn:hover {
+    background-color: var(--color-dark); 
+}
+
+
+.equals-btn {
+    background-color: var(--color-dark); 
+    color: white;
+    grid-row: span 2; 
+}
+
+.equals-btn:hover {
+    background-color: var(--color-accent);
+}
+
+.span-two {
+    grid-column: span 2;
+}
+
+
+@media (min-width: 768px) {
+    body {
+        flex-direction: row;
+        gap: 40px;
+        align-items: center;
+        padding-top: 50px;
+    }
+
     .calculator {
-        width: 90%; 
-        margin: 20px auto;
-        padding: 10px;
+        max-width: 400px; 
+        padding: 30px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .display input {
+        font-size: 3em;
+    }
+    .btn {
+        font-size: 1.3em;
     }
 }

@@ -1,241 +1,306 @@
-// script.js
-class Calculator {
-    constructor(previousOperandTextElement, currentOperandTextElement, historyListElement) {
-        this.previousOperandTextElement = previousOperandTextElement;
-        this.currentOperandTextElement = currentOperandTextElement;
-        this.historyListElement = historyListElement; 
-        this.history = []; 
-        this.memory = 0;   
-        this.clear();
-    }
+document.addEventListener('DOMContentLoaded', () => {
+   
+    const resultDisplay = document.getElementById('result');
+    const historyDisplay = document.getElementById('history');
+    const historyList = document.getElementById('calculation-history-list');
+    const buttons = document.querySelector('.buttons');
+    const memoryButtons = document.querySelector('.memory-container');
+    const clearHistoryBtn = document.getElementById('clear-history-btn');
+    
+   
+    const historyToggleBtn = document.getElementById('history-toggle-btn');
+    const historyOverlay = document.getElementById('history-overlay');
 
-    // --- Fungsi Dasar (Sama seperti sebelumnya) ---
-    clear() {
-        this.currentOperand = '0';
-        this.previousOperand = '';
-        this.operation = undefined;
-        this.updateDisplay();
-        this.updateHistoryDisplay();
-    }
+    
+    let currentInput = '0';
+    let fullExpression = '';
+    let isNewOperation = true; 
+    let memoryValue = 0;
+    let calculationHistory = [];
+    const MAX_HISTORY = 5;
 
-    clearEntry() {
-        this.currentOperand = '0';
-    }
+    
+    const evaluateExpression = (expression) => {
+       
+        let formula = expression.replace(/×/g, '*').replace(/÷/g, '/');
 
-    delete() { 
-        if (this.currentOperand === "Error: Division by zero") {
-            this.clear();
-            return;
+        try {
+           
+            if (formula.includes('/ 0')) {
+                return 'Error: Dibagi 0';
+            }
+            
+            let result = eval(formula);
+            
+            if (isNaN(result) || !isFinite(result)) {
+                return 'Error';
+            }
+            
+            return Number(result.toFixed(10)).toString();
+        } catch (e) {
+            return 'Error';
         }
-        this.currentOperand = this.currentOperand.toString().slice(0, -1);
-        if (this.currentOperand === '') {
-            this.currentOperand = '0';
-        }
-    }
+    };
 
-    appendNumber(number) {
-        if (this.currentOperand === "Error: Division by zero") {
-            this.currentOperand = number; 
-            return;
-        }
-        if (number === '.' && this.currentOperand.includes('.')) return;
+   
+    const updateDisplay = () => {
+        const maxLen = 15;
+        let displayedValue = currentInput.length > maxLen ? 
+                             parseFloat(currentInput).toExponential(5) : 
+                             currentInput;
+
+        resultDisplay.value = displayedValue;
+        historyDisplay.textContent = fullExpression;
+    };
+
+    const updateHistoryLog = (expression, result) => {
+        const historyItem = `${expression} = ${result}`;
         
-        if (this.currentOperand === '0' && number !== '.') {
-            this.currentOperand = number;
-        } else {
-            this.currentOperand += number;
-        }
-    }
-
-    chooseOperation(operation) {
-        if (this.currentOperand === "Error: Division by zero") return;
-        if (this.currentOperand === '') return;
-
-        if (this.previousOperand !== '') {
-            this.calculate(); 
-        }
-
-        this.operation = operation;
-        this.previousOperand = this.currentOperand; 
-        this.currentOperand = '';
-    }
-
-    calculate() {
-        let result;
-        const prev = parseFloat(this.previousOperand);
-        const current = parseFloat(this.currentOperand);
-
-        if (isNaN(prev) || isNaN(current)) return;
-
-        let calculationString = `${this.previousOperand} ${this.operation} ${this.currentOperand}`;
-
-        switch (this.operation) {
-            case '+':
-            case '-':
-            case '×':
-                // ... (Logika sama)
-                result = this.operation === '+' ? prev + current : 
-                         this.operation === '-' ? prev - current : prev * current;
-                break;
-            case '÷':
-                if (current === 0) {
-                    this.currentOperand = "Error: Division by zero";
-                    this.previousOperand = '';
-                    this.operation = undefined;
-                    return;
-                }
-                result = prev / current;
-                break;
-            default:
-                return;
-        }
-
-        this.addHistory(`${calculationString} = ${result}`);
-
-        this.currentOperand = result.toString();
-        this.operation = undefined;
-        this.previousOperand = '';
+        calculationHistory.push(historyItem);
         
-        this.updateHistoryDisplay(); // Perbarui tampilan history setelah perhitungan
-    }
-
-    // --- Advanced Features ---
-    addHistory(calculation) {
-        this.history.unshift(calculation); 
-        if (this.history.length > 5) {
-            this.history.pop(); 
+        if (calculationHistory.length > MAX_HISTORY) {
+            calculationHistory.shift();
         }
-    }
 
-    updateHistoryDisplay() {
-        this.historyListElement.innerHTML = ''; 
-
-        this.history.forEach((item, index) => {
-            const listItem = document.createElement('li');
-            listItem.innerText = item;
-            // FITUR BARU: Tambahkan event listener agar item history bisa dipencet
-            listItem.addEventListener('click', () => {
-                this.loadHistoryItem(item);
-            });
-            this.historyListElement.appendChild(listItem);
+        historyList.innerHTML = '';
+       
+        [...calculationHistory].reverse().forEach(item => { 
+            const li = document.createElement('li');
+            li.textContent = item;
+            historyList.appendChild(li);
         });
-    }
+    };
 
-    loadHistoryItem(item) {
-        // Logika untuk memuat hasil perhitungan kembali ke display
-        // Misalnya, mengambil hasil (angka setelah '=') dan memuatnya ke currentOperand
-        const resultMatch = item.match(/=\s*(-?\d+(\.\d+)?)$/);
-        if (resultMatch) {
-            this.currentOperand = resultMatch[1];
-            this.previousOperand = '';
-            this.operation = undefined;
-            this.updateDisplay();
-            // Opsional: Sembunyikan drawer setelah memuat
-            document.getElementById('history-drawer').classList.remove('active'); 
+    
+    const clearCalculationHistory = () => {
+        calculationHistory = []; 
+        historyList.innerHTML = ''; 
+    };
+
+    const deleteLastDigit = () => {
+        if (currentInput === 'Error') {
+            currentInput = '0';
+            fullExpression = '';
+            isNewOperation = true;
+            return;
         }
-    }
 
-    memoryFunction(action) {
-        const currentVal = parseFloat(this.currentOperand);
-        // ... (Logika Memory sama seperti sebelumnya)
+        if (isNewOperation) {
+            const lastChar = fullExpression.trim().slice(-1);
+            if (lastChar === '+' || lastChar === '-' || lastChar === '×' || lastChar === '÷') {
+                fullExpression = fullExpression.trim().slice(0, -1).trim();
+                
+                const tokens = fullExpression.split(' ');
+                currentInput = tokens[tokens.length - 1] || '0'; 
+                isNewOperation = false;
+                return;
+            }
+        }
+        
+        currentInput = currentInput.slice(0, -1);
+        
+        if (currentInput.length === 0) {
+            currentInput = '0';
+            isNewOperation = true;
+        }
+        
+        const tokens = fullExpression.trim().split(' ');
+        const lastToken = tokens[tokens.length - 1];
+
+        if (!isNaN(parseFloat(lastToken))) {
+            const index = fullExpression.lastIndexOf(lastToken);
+            if (index !== -1) {
+                fullExpression = fullExpression.substring(0, index) + currentInput;
+            } else {
+                fullExpression = currentInput;
+            }
+        }
+        
+        if (fullExpression === '0') {
+             fullExpression = '';
+        }
+        fullExpression = fullExpression.trim();
+    };
+
+    buttons.addEventListener('click', (event) => {
+        const target = event.target;
+        if (!target.classList.contains('btn')) return;
+
+        const num = target.dataset.num;
+        const op = target.dataset.op;
+        const action = target.dataset.action;
+
+        if (num !== undefined) {
+            if (currentInput === 'Error' || isNewOperation) {
+                currentInput = num;
+                isNewOperation = false;
+            } else {
+                if (currentInput.length < 20) {
+                     currentInput += num;
+                }
+            }
+            
+            const tokens = fullExpression.trim().split(' ');
+            const lastToken = tokens[tokens.length - 1];
+
+            if (tokens.length === 0 || isNaN(parseFloat(lastToken)) || lastToken.endsWith(' ')) {
+                fullExpression = fullExpression.trim() + ' ' + currentInput;
+            } else {
+                const index = fullExpression.lastIndexOf(lastToken);
+                if (index !== -1) {
+                    fullExpression = fullExpression.substring(0, index) + currentInput;
+                } else {
+                    fullExpression = currentInput;
+                }
+            }
+            fullExpression = fullExpression.trim();
+        } 
+        
+        else if (action === '.') {
+            if (currentInput === 'Error' || isNewOperation) {
+                currentInput = '0.';
+                isNewOperation = false;
+            } else if (!currentInput.includes('.')) {
+                currentInput += '.';
+            }
+        } 
+        
+        else if (op !== undefined) {
+            if (currentInput === 'Error') {
+                currentInput = '0';
+                fullExpression = '';
+            }
+
+            const lastChar = fullExpression.trim().slice(-1);
+            if (lastChar === '+' || lastChar === '-' || lastChar === '×' || lastChar === '÷') {
+                fullExpression = fullExpression.trim().slice(0, -1) + ` ${op}`;
+            } else {
+                fullExpression = fullExpression.trim() + ` ${op}`;
+            }
+            
+            isNewOperation = true; 
+        } 
+        
+        else if (action !== undefined) {
+            if (action === 'C') { 
+                currentInput = '0';
+                fullExpression = '';
+                isNewOperation = true;
+            } else if (action === 'DEL') { 
+                deleteLastDigit();
+            } else if (action === '=') {
+                if (fullExpression === '') return;
+                
+                let expressionToEvaluate = fullExpression.trim();
+
+                const lastChar = expressionToEvaluate.slice(-1);
+                if (lastChar === '+' || lastChar === '-' || lastChar === '×' || lastChar === '÷') {
+                    expressionToEvaluate = expressionToEvaluate.slice(0, -1);
+                }
+
+                const result = evaluateExpression(expressionToEvaluate);
+
+                if (!result.startsWith('Error')) {
+                    updateHistoryLog(expressionToEvaluate, result);
+                }
+
+                currentInput = result;
+                fullExpression = `${result}`; 
+                isNewOperation = true; 
+            }
+        }
+
+        updateDisplay();
+    });
+
+
+    memoryButtons.addEventListener('click', (event) => {
+        const target = event.target;
+        if (!target.classList.contains('memory-btn')) return;
+
+        const action = target.dataset.action;
+        const currentValue = parseFloat(currentInput); 
+
+        if (currentInput === 'Error') return;
+
         switch (action) {
-            case 'm-plus': 
-                if (!isNaN(currentVal)) { this.memory += currentVal; }
-                break;
-            case 'm-minus': 
-                if (!isNaN(currentVal)) { this.memory -= currentVal; }
-                break;
-            case 'm-read': 
-                if (this.currentOperand !== "Error: Division by zero") {
-                    this.currentOperand = this.memory.toString();
+            case 'MC': 
+                memoryValue = 0; 
+                
+            
+                if (isNewOperation || fullExpression === '') {
+                    currentInput = '0';
+                    fullExpression = '';
                 }
                 break;
-            case 'm-clear': 
-                this.memory = 0;
+                
+            case 'MR': 
+                currentInput = memoryValue.toString();
+                fullExpression = currentInput; 
+                partialResult = null;
+                isNewOperation = true;
+                break;
+                
+            case 'M+': 
+                memoryValue += currentValue;
+                
+                currentInput = memoryValue.toString(); 
+                isNewOperation = true; 
+                partialResult = null;
+                break;
+                
+            case 'M-': 
+                memoryValue -= currentValue;
+                
+                currentInput = memoryValue.toString(); 
+                isNewOperation = true; 
+                partialResult = null;
                 break;
         }
-    }
 
-    updateDisplay() {
-        this.currentOperandTextElement.innerText = this.currentOperand;
-        if (this.operation != null) {
-            this.previousOperandTextElement.innerText = 
-                `${this.previousOperand} ${this.operation}`;
-        } else {
-            this.previousOperandTextElement.innerText = '';
+        updateDisplay();
+    });
+
+    historyToggleBtn.addEventListener('click', () => {
+        historyOverlay.classList.toggle('active');
+    });
+
+    clearHistoryBtn.addEventListener('click', clearCalculationHistory);
+
+
+    document.addEventListener('keydown', (event) => {
+        const key = event.key;
+
+        let targetButton = null;
+
+        if (key >= '0' && key <= '9') {
+            targetButton = document.querySelector(`.number-btn[data-num="${key}"]`);
+        } else if (key === '+') {
+            targetButton = document.querySelector(`.operator-btn[data-op="+"]`);
+        } else if (key === '-') {
+            targetButton = document.querySelector(`.operator-btn[data-op="-"]`);
+        } else if (key === '*' || key === 'x') {
+            targetButton = document.querySelector(`.operator-btn[data-op="×"]`);
+        } else if (key === '/') {
+            targetButton = document.querySelector(`.operator-btn[data-op="÷"]`);
+        } else if (key === 'Enter' || key === '=') {
+            targetButton = document.querySelector(`.equals-btn[data-action="="]`);
+            event.preventDefault(); 
+        } else if (key === '.') {
+            targetButton = document.querySelector(`.decimal-btn[data-action="."]`);
+        } else if (key === 'Escape' || key === 'c' || key === 'C') {
+            targetButton = document.querySelector(`.function-btn[data-action="C"]`);
+        } else if (key === 'Backspace') {
+             deleteLastDigit();
+             event.preventDefault(); 
+             updateDisplay();
+             return; 
         }
-    }
-}
 
-// --- Event Listeners dan Inisialisasi ---
-const numberButtons = document.querySelectorAll('[data-value]:not([data-action])');
-const operatorButtons = document.querySelectorAll('[data-action="operator"]');
-const equalsButton = document.querySelector('[data-action="equals"]');
-const clearButton = document.querySelector('[data-action="clear"]');
-const clearEntryButton = document.querySelector('[data-action="clear-entry"]');
-const backspaceButton = document.querySelector('[data-action="backspace"]');
-const memoryButtons = document.querySelectorAll('[data-action="m-clear"], [data-action="m-read"], [data-action="m-plus"], [data-action="m-minus"]');
-const historyToggleButton = document.getElementById('history-toggle'); // Tombol Ikon
-const historyDrawerElement = document.getElementById('history-drawer'); // Kontainer History
-
-const previousOperandTextElement = document.getElementById('previous-operand');
-const currentOperandTextElement = document.getElementById('current-operand');
-const historyListElement = document.getElementById('history-list');
-
-const calculator = new Calculator(previousOperandTextElement, currentOperandTextElement, historyListElement);
-
-// Menghubungkan fungsi toggle history
-historyToggleButton.addEventListener('click', () => {
-    historyDrawerElement.classList.toggle('active');
+        if (targetButton) {
+            targetButton.click();
+        }
+    });
+    
+    updateDisplay();
 });
-
-
-// ... (Event Listeners lainnya untuk tombol angka, operator, equals, C, CE, DEL, Memory) ...
-// (Semua event listeners di bagian ini tetap sama, hanya memanggil method dari instance calculator)
-
-numberButtons.forEach(button => {
-    button.addEventListener('click', () => { calculator.appendNumber(button.innerText); calculator.updateDisplay(); });
-});
-operatorButtons.forEach(button => {
-    button.addEventListener('click', () => { calculator.chooseOperation(button.innerText); calculator.updateDisplay(); });
-});
-equalsButton.addEventListener('click', () => {
-    calculator.calculate(); calculator.updateDisplay(); 
-});
-clearButton.addEventListener('click', () => {
-    calculator.clear(); 
-});
-clearEntryButton.addEventListener('click', () => {
-    calculator.clearEntry(); calculator.updateDisplay(); 
-});
-backspaceButton.addEventListener('click', () => {
-    calculator.delete(); calculator.updateDisplay(); 
-});
-memoryButtons.forEach(button => {
-    button.addEventListener('click', () => { calculator.memoryFunction(button.dataset.action); calculator.updateDisplay(); });
-});
-
-
-// Keyboard Support (Sama seperti sebelumnya)
-document.addEventListener('keydown', (e) => {
-    const key = e.key;
-
-    if (key >= '0' && key <= '9') { calculator.appendNumber(key); } 
-    else if (key === '+' || key === '-' || key === '*' || key === '/') { 
-        let displayOp = key === '*' ? '×' : key === '/' ? '÷' : key;
-        calculator.chooseOperation(displayOp);
-    } 
-    else if (key === 'Enter' || key === '=') { 
-        e.preventDefault(); 
-        calculator.calculate();
-    }
-    else if (key === '.') { calculator.appendNumber('.'); }
-    else if (key === 'Escape') { calculator.clear(); }
-    else if (key === 'Backspace') { calculator.delete(); }
-
-    calculator.updateDisplay();
-});
-
-// Tampilkan 0 dan update history kosong saat startup
-calculator.updateDisplay();
-calculator.updateHistoryDisplay();
