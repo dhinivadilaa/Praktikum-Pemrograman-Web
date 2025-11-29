@@ -1,1 +1,1 @@
-![png](Judul-6/Tampilan Weather Dashboard.jpg)
+![png](Tampilan Weather Dashboard.jpg)
