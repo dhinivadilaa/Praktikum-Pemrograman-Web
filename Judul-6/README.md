@@ -1,3 +1,3 @@
-![gambar](Tampilan Weather Dashboard.jpg)
+## Tampilan Dashboard
 
 ![alt text](<Tampilan Weather Dashboard.jpg>)
