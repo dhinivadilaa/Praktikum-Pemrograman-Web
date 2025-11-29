@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DH-VADILA TECH - Solusi Pelayanan IT Profesional</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'bg-utama': '#FFF8D4',       
+            'text-utama': '#1E1E2F',    
+            'aksen-primer': '#A3B087',  
+            'aksen-sekunder': '#3C4A57',
+          },
+          fontFamily: {
+            sans: ['Poppins', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    html { scroll-behavior: smooth; }
+  </style>
+</head>
+
+<body class="bg-bg-utama text-text-utama font-sans">
+
+  <header class="fixed top-0 w-full z-50 bg-text-utama shadow-lg">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <h1 class="text-xl md:text-2xl font-extrabold text-white tracking-tight">DH-VADILA TECH</h1>
+      <nav class="hidden md:flex space-x-8 text-sm font-semibold text-white">
+        <a href="#home" class="hover:text-aksen-primer transition">Beranda</a>
+        <a href="#features" class="hover:text-aksen-primer transition">Layanan</a>
+        <a href="#about" class="hover:text-aksen-primer transition">Tentang Kami</a>
+        <a href="#contact" class="hover:text-aksen-primer transition">Kontak</a>
+      </nav>
+    </div>
+  </header>
+
+  <section id="home" class="h-screen flex flex-col justify-center items-center text-center relative overflow-hidden bg-[url('https://images.unsplash.com/photo-1555949963-aa79dcee981c?auto=format&fit=crop&w=1920&q=80')] bg-cover bg-center">
+    <div class="absolute inset-0 bg-[#0f172a]/60"></div>
+    <div class="relative z-10 px-6">
+      <h1 class="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-4 drop-shadow-lg">
+        Solusi IT Terintegrasi untuk Bisnis Modern
+      </h1>
+      <p class="text-lg md:text-xl text-gray-200 font-medium mb-8">
+        Dari infrastruktur jaringan hingga keamanan siber - kami hadir untuk kemajuan bisnis Anda.
+      </p>
+      <div class="space-x-4">
+        <a href="#contact" class="bg-aksen-primer text-text-utama font-semibold px-6 py-3 rounded-full hover:bg-aksen-sekunder hover:text-white transition duration-300 shadow-md">
+          Hubungi Kami
+        </a>
+        <a href="#features" class="border-2 border-aksen-primer text-white px-6 py-3 rounded-full hover:bg-aksen-primer hover:text-text-utama transition duration-300 shadow-md">
+          Layanan Kami
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="features" class="py-24 px-6 bg-white">
+    <div class="max-w-6xl mx-auto text-center">
+      <h2 class="text-3xl font-extrabold mb-4 text-text-utama">Layanan Utama Kami</h2>
+      <p class="text-aksen-sekunder text-lg mb-12">Meningkatkan efisiensi dan keamanan dengan solusi berbasis teknologi inovatif.</p>
+
+      <div class="grid md:grid-cols-3 gap-10">
+        <div class="bg-bg-utama p-8 rounded-2xl shadow-lg hover:-translate-y-2 hover:shadow-2xl transition">
+          <h3 class="font-semibold text-xl mb-3">Support 24/7</h3>
+          <p class="text-aksen-sekunder">Dukungan cepat dan responsif setiap saat oleh tim teknisi profesional kami.</p>
+        </div>
+        <div class="bg-bg-utama p-8 rounded-2xl shadow-lg hover:-translate-y-2 hover:shadow-2xl transition">
+          <h3 class="font-semibold text-xl mb-3">Keamanan Siber</h3>
+          <p class="text-aksen-sekunder">Perlindungan menyeluruh dengan firewall, enkripsi, dan sistem backup otomatis.</p>
+        </div>
+        <div class="bg-bg-utama p-8 rounded-2xl shadow-lg hover:-translate-y-2 hover:shadow-2xl transition">
+          <h3 class="font-semibold text-xl mb-3">Cloud Management</h3>
+          <p class="text-aksen-sekunder">Optimalisasi infrastruktur cloud untuk performa maksimal dan biaya efisien.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="py-24 bg-aksen-sekunder text-bg-utama text-center px-6">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-3xl font-extrabold mb-6">Tentang DH-VADILA TECH</h2>
+      <p class="text-lg mb-4 leading-relaxed opacity-95">
+        Kami hadir sebagai mitra strategis dalam transformasi digital bisnis Anda. 
+        Fokus kami adalah keandalan, keamanan, dan efisiensi, menjadikan teknologi sebagai fondasi kesuksesan jangka panjang.
+      </p>
+    </div>
+  </section>
+
+  <section id="contact" class="py-24 px-6 bg-bg-utama">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-start">
+      
+      <div class="bg-white p-8 rounded-2xl shadow-xl border border-aksen-primer/30">
+        <h2 class="text-3xl font-extrabold mb-6 text-text-utama">Informasi Kontak</h2>
+        <p class="text-aksen-sekunder mb-6">Hubungi kami untuk konsultasi, kerja sama, atau pertanyaan terkait layanan IT Anda.</p>
+        <ul class="space-y-4 text-text-utama">
+          <li><strong>Email:</strong> contact@dhvadilatech.com</li>
+          <li><strong>Telepon:</strong> +62 812-3456-7890</li>
+          <li><strong>Alamat:</strong> Jl. Abdul Muis Blok B, Bandar Lampung, Indonesia</li>
+        </ul>
+      </div>
+
+      <div class="bg-white p-8 rounded-2xl shadow-2xl border border-aksen-primer/30">
+        <h2 class="text-3xl font-extrabold text-center mb-8 text-text-utama">Hubungi Kami</h2>
+        <form class="space-y-5">
+          <input type="text" placeholder="Nama Lengkap" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-aksen-primer focus:outline-none">
+          <input type="email" placeholder="Alamat Email" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-aksen-primer focus:outline-none">
+          <textarea rows="4" placeholder="Tuliskan kebutuhan Anda..." class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-aksen-primer focus:outline-none"></textarea>
+          <button class="w-full bg-aksen-primer text-text-utama font-semibold py-3 rounded-md hover:bg-aksen-sekunder hover:text-white transition duration-300 shadow-lg">Kirim Pesan</button>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="bg-text-utama text-bg-utama py-8">
+    <div class="max-w-6xl mx-auto text-center">
+      <p class="text-sm">&copy; 2025 DH-VADILA TECH. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
